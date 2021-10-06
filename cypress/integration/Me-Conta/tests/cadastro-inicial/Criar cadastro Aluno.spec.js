@@ -34,9 +34,7 @@ describe('Criar Conta Aluno', () => {
     it('Cadastrar Usuário - email duplicado', () => {
         cy.get('#name').type(name)
         cy.get('#email').type("teste@teste.com")
-        //cy.enterPassword(Cypress.env('password'), Cypress.env('confpassword'))
-        cy.get('#password').type("s#nh4Valida")
-        cy.get('#passwordConfirm').type("s#nh4Valida")
+        cy.enterPassword(Cypress.env('password'), Cypress.env('confpassword'))
         cy.get('#termsConfirm').click()
         cy.get('.styles__Wrapper-sc-s8fbhq-0').should('to.be.enabled').click()
         cy.get('.Toastify__toast-body').should('have.text', "E-mail duplicado!")
@@ -45,9 +43,7 @@ describe('Criar Conta Aluno', () => {
     it('Cadastrar Usuário - email inválido', () => {
         cy.get('#name').type(name)
         cy.get('#email').type('teste')
-        //cy.enterPassword(Cypress.env('password'), Cypress.env('confpassword'))
-        cy.get('#password').type("s#nh4Valida")
-        cy.get('#passwordConfirm').type("s#nh4Valida")
+        cy.enterPassword(Cypress.env('password'), Cypress.env('confpassword'))
         cy.get('#termsConfirm').click()
         cy.get('.styles__Wrapper-sc-s8fbhq-0').should('to.be.disabled')
         cy.get('.styles__Error-sc-1xrqtb1-3').should('have.text', " E-mail inválido ")
@@ -64,18 +60,14 @@ describe('Criar Conta Aluno', () => {
     it('Cadastrar Usuário - não concordar com os termos e políticas de privacidade', () => {
         cy.get('#name').type(name)
         cy.get('#email').type(email)
-        //cy.enterPassword(Cypress.env('password'), Cypress.env('confpassword'))
-        cy.get('#password').type("s#nh4Valida")
-        cy.get('#passwordConfirm').type("s#nh4Valida")
+        cy.enterPassword(Cypress.env('password'), Cypress.env('confpassword'))
         cy.get('.styles__Error-sc-kj9pa0-3').should('have.text', " Termo obrigatório ")
     })
 
     it('Cadastrar Usuário - nome menor que 2 caracteres', () => {
         cy.get('#name').type('t')
         cy.get('#email').type(email)
-        //cy.enterPassword(Cypress.env('password'), Cypress.env('confpassword'))
-        cy.get('#password').type("s#nh4Valida")
-        cy.get('#passwordConfirm').type("s#nh4Valida")
+        cy.enterPassword(Cypress.env('password'), Cypress.env('confpassword'))
         cy.get('#termsConfirm').click()
         cy.get('.styles__Wrapper-sc-s8fbhq-0').should('to.be.disabled')
         cy.get('.styles__Error-sc-1xrqtb1-3').should('have.text', " Nome deve conter mais de 2 caracteres ")
