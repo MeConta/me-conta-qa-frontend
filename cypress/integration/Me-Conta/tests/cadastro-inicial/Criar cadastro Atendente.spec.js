@@ -6,13 +6,13 @@ faker.locale = 'pt_BR'
 const name = faker.name.findName()
 const email = faker.internet.email()
 
-describe('Criar Conta Aluno', () => {
+describe('Criar Conta Atendente', () => {
 
     beforeEach(() =>{
         cy.visit("/")
     })
 
-    it('Cadastrar Aluno',() => {
+    it('Cadastrar Voluntário Atendente',() => {
 
         //Preencher campo Nome
         cy.get('#name').type(name)
@@ -20,8 +20,8 @@ describe('Criar Conta Aluno', () => {
         cy.get('#email').type(email)
         //Preencher campo Senha e Confirmar senha
         cy.enterPassword(Cypress.env('password'), Cypress.env('confpassword'))
-        // Verificar se a opção Tipo aluno está selecionada
-        cy.get('#Aluno').should('to.be.checked') 
+        // Selecionar Tipo Voluntário Atendente
+        cy.get(':nth-child(3) > .styles__RadioValue-sc-rx994k-2').click()
         // Verificar botão Cadastrar desabilitado
         cy.get('.styles__Wrapper-sc-s8fbhq-0').should('to.be.disabled')
         // Selecionar Eu li e concoordo com os Termos de uso e ......
@@ -29,7 +29,7 @@ describe('Criar Conta Aluno', () => {
         // Clicar no botão Cadastrar
         cy.get('.styles__Wrapper-sc-s8fbhq-0').should('to.be.enabled')
         .click()
-        // Redirecionado para a página aluno
-        cy.url().should('eq', 'https://me-conta-frontend.herokuapp.com/cadastro-aluno')
-    })
+        // Redirecionado para a página Atendente
+        cy.url().should('eq', 'https://me-conta-frontend.herokuapp.com/cadastro-atendente')
+    }) 
 })
