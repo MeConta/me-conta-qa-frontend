@@ -1,6 +1,6 @@
 # Objetivo
 
- - Automatizar fronend Me Conta ?
+ - Automatizar frontend Me Conta ?
 # Pré Condição
 
 - Instalar Node.js - https://no-dejs.org/en/download/ 
