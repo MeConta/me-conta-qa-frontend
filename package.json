@@ -13,7 +13,8 @@
     "mocha-allure-reporter": "^1.4.0"
   },
   "scripts": {
-    "test": "npx cypress run  --reporter mocha-allure-reporter"
+    "test": "npx cypress run",
+    "cy:open": "cypress open"
   },
   "keywords": [],
   "author": "",
