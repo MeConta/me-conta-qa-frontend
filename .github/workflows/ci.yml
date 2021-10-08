@@ -25,7 +25,6 @@ jobs:
       uses: actions/setup-node@v2
       env:
         CYPRESS_PASSWORD: ${{ secrets.CYPRESS_PASSWORD }}
-        CYPRESS_CONFPASSWORD: ${{ secrets.CYPRESS_CONFPASSWORD }}
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'

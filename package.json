@@ -12,8 +12,9 @@
     "allure-commandline": "^2.13.8",
     "mocha-allure-reporter": "^1.4.0"
   },
-  "scripts": {
+  "scripts":{
     "test": "npx cypress run",
+    "test:ci": "npx cypress run -e configFile=test CYPRESS_PASSWORD=$CYPRESS_PASSWORD",
     "cy:open": "cypress open"
   },
   "keywords": [],
