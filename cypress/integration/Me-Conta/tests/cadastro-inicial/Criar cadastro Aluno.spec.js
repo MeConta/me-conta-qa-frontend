@@ -17,7 +17,7 @@ describe('Criar Conta Aluno', () => {
         //Preencher campo E-mail
         cy.get('#email').type(email)
         //Preencher campo Senha e Confirmar senha
-        cy.enterPassword(Cypress.env('password'), Cypress.env('confpassword'))
+        cy.enterPassword(Cypress.env('CYPRESS_PASSWORD'), Cypress.env('CYPRESS_CONFPASSWORD'))
         // Verificar se a opção Tipo aluno está selecionada
         cy.get('#Aluno').should('to.be.checked') 
         // Verificar botão Cadastrar desabilitado
