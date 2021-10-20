@@ -3,14 +3,12 @@
 import faker from 'faker'
 faker.locale = 'pt_BR'
 
-
-
 describe('Cadastrar Aluno', () => {
     beforeEach(() =>{
         cy.visit("/")
     })
 
-    xit('Cadastrar Aluno - Sucesso', () => {
+    it.only('Cadastrar Aluno - Sucesso', () => {
         const name = faker.name.findName()
         const email = faker.internet.email()
         const phone = faker.phone.phoneNumber()
@@ -22,13 +20,14 @@ describe('Cadastrar Aluno', () => {
         cy.get('.styles__Wrapper-sc-s8fbhq-0').should('to.be.disabled')
         cy.get('#termsConfirm').click()
         cy.get('.styles__Wrapper-sc-s8fbhq-0').should('to.be.enabled').click()
+        cy.wait(3000)
         cy.url().should('eq', 'https://me-conta-frontend.herokuapp.com/cadastro-aluno')
         cy.get('.Toastify__toast-body').should('have.text', "O registro foi criado com sucesso!A operação foi realizada com sucesso!")
         cy.get('[data-testid=phone-number]').type(phone)
-        //cy.get('#dataNascimento').type('2003/10/19')
-        //cy.get('.styles__Input-sc-owercq-0 > .hHPgrZ').type('19')
-        //cy.get('#estado').type('São Paulo')
-        cy.get('#cidade').type('São Paulo')
+        cy.get('#dataNascimento').type('20102019')
+        cy.wait(2000)
+        cy.get('#UF').should('have.value', 'Acre')
+        cy.get('#cidade').type('Rio Branco')
         cy.get('#escolaridade').type('1º Ano - Ensino Médio')
         cy.get('.styles__Wrapper-sc-s8fbhq-0').click()
         cy.url().should('eq', 'https://me-conta-frontend.herokuapp.com/dashboard-aluno')
