@@ -22,7 +22,7 @@ describe('Criar conta', () => {
         //Preencher campo Senha e Confirmar senha
         cy.enterPassword(Cypress.env('CYPRESS_PASSWORD'), Cypress.env('CYPRESS_PASSWORD'))
         // Verificar se a opção Tipo aluno está selecionada
-        cy.get('#Aluno').should('to.be.checked') 
+        cy.get("[value='0']").should('to.be.checked') 
         // Verificar botão Cadastrar desabilitado
         cy.get('.styles__Wrapper-sc-s8fbhq-0').should('to.be.disabled')
         // Selecionar Eu li e concoordo com os Termos de uso e ......
@@ -44,7 +44,7 @@ describe('Criar conta', () => {
         cy.get('.styles__Wrapper-sc-s8fbhq-0').should('to.be.disabled')
         cy.get('#termsConfirm').click()
         cy.get('.styles__Wrapper-sc-s8fbhq-0').should('to.be.enabled').click()
-        cy.url().should('eq', 'https://me-conta-frontend.herokuapp.com/cadastro-atendente')
+        cy.url().should('eq', 'https://me-conta-frontend.herokuapp.com/cadastro-voluntario')
     }) 
 
     it('Criar Conta - Voluntário Atendente',() => {
@@ -58,7 +58,7 @@ describe('Criar conta', () => {
         cy.get('.styles__Wrapper-sc-s8fbhq-0').should('to.be.disabled')
         cy.get('#termsConfirm').click()
         cy.get('.styles__Wrapper-sc-s8fbhq-0').should('to.be.enabled') .click()
-        cy.url().should('eq', 'https://me-conta-frontend.herokuapp.com/cadastro-atendente')
+        cy.url().should('eq', 'https://me-conta-frontend.herokuapp.com/cadastro-voluntario')
     }) 
 
     it('Criar Conta - E-mail duplicado', () => {
@@ -67,7 +67,7 @@ describe('Criar conta', () => {
         cy.enterPassword(Cypress.env('password'), Cypress.env('confpassword'))
         cy.get('#termsConfirm').click()
         cy.get('.styles__Wrapper-sc-s8fbhq-0').should('to.be.enabled').click()
-        cy.get('.Toastify__toast-body').should('have.text', "E-mail duplicado!")
+        cy.get('.Toastify__toast-body').should('have.text', "e-mail duplicado")
     })
 
     it('Criar Conta - E-mail inválido', () => {
