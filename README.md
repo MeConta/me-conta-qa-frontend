@@ -20,7 +20,7 @@
 # Rodar os testes e gerar o Allure report
 
 - Executar o comando `npx cypress run  --reporter mocha-allure-reporter`
-- Executar o comando para gerar o Allure Results `npx allure generate allure-results`
+- Executar o comando para gerar o Allure Results `npx allure generate allure-results --clean`
 - Executar o comando para abrir o Allure Report no navegador `npx allure open allure-report`
 - Executar o comando para limpar os relatórios `rm -r allure-results/ allure-report || true` 
 
