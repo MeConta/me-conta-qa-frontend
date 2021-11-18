@@ -4,15 +4,15 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "cypress": "^8.5.0",
     "faker": "^5.5.3"
   },
   "devDependencies": {
-    "@shelex/cypress-allure-plugin": "^2.19.1",
+    "@shelex/cypress-allure-plugin": "^2.19.5",
     "allure-commandline": "^2.13.8",
+    "cypress": "^9.0.0",
     "mocha-allure-reporter": "^1.4.0"
   },
-  "scripts":{
+  "scripts": {
     "test": "npx cypress run",
     "test:ci": "npx cypress run -e configFile=test CYPRESS_PASSWORD=$CYPRESS_PASSWORD",
     "cy:open": "cypress open"
