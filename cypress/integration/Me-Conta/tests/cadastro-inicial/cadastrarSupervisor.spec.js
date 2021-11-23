@@ -12,7 +12,7 @@ describe('Cadastrar Supervisor', () => {
         const name = faker.name.findName()
         const email = faker.internet.email()
         const phone = faker.phone.phoneNumber()
-        const data = '2013-10-10'
+        const data = '1990-10-10'
         
         cy.get('#name').type(name)
         cy.get('#email').type(email)
@@ -22,6 +22,7 @@ describe('Cadastrar Supervisor', () => {
         cy.get('#termsConfirm').click()
         cy.get('.styles__Wrapper-sc-s8fbhq-0').should('to.be.enabled').click()
         cy.url().should('eq', 'https://me-conta-frontend.herokuapp.com/cadastro-voluntario')
+        cy.get("[id='Supervisor *']").should('to.be.visible').click()
         cy.get('#telefone').type(phone)
         cy.get('#dataNascimento').should('to.be.visible').type(data , { force: true })
         cy.get('#UF').should('to.be.visible').select('Acre').should('have.value', 'AC')
@@ -46,10 +47,6 @@ describe('Cadastrar Supervisor', () => {
 
     it('Cadastrar Supervisor - Campos vazios', () => {
         
-    })
-
-    it('Cadastrar Supervisor - Pular preenchimento de dados', () => {
-
     })
 
     it('Cadastrar Supervisor - Campos inválidos', () => {
