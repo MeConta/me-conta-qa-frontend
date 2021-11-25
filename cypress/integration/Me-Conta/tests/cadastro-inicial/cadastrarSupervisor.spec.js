@@ -75,8 +75,6 @@ describe('Cadastrar Supervisor', () => {
     it('Cadastrar Supervisor - Campos vazios', () => {
         const name = faker.name.findName()
         const email = faker.internet.email()
-        const phone = faker.phone.phoneNumber()
-        const data = '1990-10-10'
         
         cy.get('#name').type(name)
         cy.get('#email').type(email)
@@ -101,6 +99,23 @@ describe('Cadastrar Supervisor', () => {
     })
 
     it('Cadastrar Supervisor - Campos inválidos', () => {
-        //idade deve ser > 18 anos
+        const name = faker.name.findName()
+        const email = faker.internet.email()
+        const data = '2010-10-10'
+        
+        cy.get('#name').type(name)
+        cy.get('#email').type(email)
+        cy.enterPassword(Cypress.env('CYPRESS_PASSWORD'), Cypress.env('CYPRESS_PASSWORD'))
+        cy.get("[value='1']").should('to.be.visible').click()
+        cy.get('.styles__Wrapper-sc-s8fbhq-0').should('to.be.disabled')
+        cy.get('#termsConfirm').click()
+        cy.get('.styles__Wrapper-sc-s8fbhq-0').should('to.be.enabled').click()
+        cy.url().should('eq', 'https://me-conta-frontend.herokuapp.com/cadastro-voluntario')
+        cy.get('#dataNascimento').should('to.be.visible').type(data , { force: true })
+        cy.get('div:nth-child(5) > .styles__Error-sc-1xrqtb1-3').should('have.text'," Voluntários devem ter mais de 18 anos. ")
+        cy.get('#cidade').type('AB')
+        cy.get('div:nth-child(7) > .styles__Error-sc-1xrqtb1-3').should('have.text'," Cidade deve conter mais de 3 caracteres. ")
+        cy.get('#anoFormacao').clear().type('2030')
+        cy.get('div:nth-child(10) > .styles__Error-sc-1xrqtb1-3').should('have.text'," Ano de formação inválido ")
     })
 })
