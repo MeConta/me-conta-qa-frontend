@@ -36,7 +36,7 @@ describe('Cadastrar Aluno', () => {
         cy.url().should('eq', 'https://me-conta-frontend.herokuapp.com/dashboard-aluno')
     })
 
-    it.skip('Cadastrar Aluno - Sucesso apenas com campos obrigatórios', () => {
+    it('Cadastrar Aluno - Sucesso apenas com campos obrigatórios', () => {
         const name = faker.name.findName()
         const email = faker.internet.email()
         const phone = faker.phone.phoneNumber()
@@ -50,12 +50,12 @@ describe('Cadastrar Aluno', () => {
         cy.get('#termsConfirm').click()
         cy.get('.styles__Wrapper-sc-s8fbhq-0').should('to.be.enabled').click()
         cy.url().should('eq', 'https://me-conta-frontend.herokuapp.com/cadastro-aluno')
+        cy.get('#escolaridade').should('to.be.visible').select('1').should('have.value', '1')
         cy.get('#telefone').type(phone)
         cy.get('#dataNascimento').should('to.be.visible').type(data , { force: true })
         cy.get('#UF').should('to.be.visible').select('Acre').should('have.value', 'AC')
         cy.get('#cidade').type('Rio Branco')
         cy.get('#Feminino').should('to.be.visible').click()
-        cy.get('#escolaridade').should('to.be.visible').select('1').should('have.value', '1')
         cy.get('[name=tipoEscola]').should('to.be.checked')
         cy.get('.styles__Wrapper-sc-s8fbhq-0').click()
         cy.url().should('eq', 'https://me-conta-frontend.herokuapp.com/dashboard-aluno')
