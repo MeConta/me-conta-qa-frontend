@@ -5,7 +5,7 @@ faker.locale = 'pt_BR'
 
 describe('Cadastrar Aluno', () => {
     beforeEach(() =>{
-        cy.visit("/")
+        cy.visit("/criar-conta")
     })
 
     it('Cadastrar Aluno - Sucesso com todos os campos', () => {

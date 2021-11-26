@@ -8,7 +8,7 @@ const email = faker.internet.email()
 
 describe('Criar conta', () => {
     beforeEach(() =>{
-        cy.visit("/")
+        cy.visit("/criar-conta")
     })
 
     it('Criar conta - Aluno', () => {
