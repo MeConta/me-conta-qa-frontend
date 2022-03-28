@@ -2,5 +2,8 @@
     "baseUrl": "https://me-conta-frontend.herokuapp.com",
     "video": false,
     "viewportWidth": 1024,
-    "viewportHeight": 768
+    "viewportHeight": 768,
+    "env": {
+        "PASSWORD": "s#nh4Valida"
+    }
 }

@@ -3,13 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {
-    "faker": "^5.5.3"
-  },
   "devDependencies": {
-    "@shelex/cypress-allure-plugin": "^2.19.5",
-    "allure-commandline": "^2.13.8",
-    "cypress": "^9.0.0",
+    "@faker-js/faker": "^6.0.0",
+    "@shelex/cypress-allure-plugin": "^2.26.5",
+    "allure-commandline": "^2.17.2",
+    "cypress": "^9.5.2",
     "mocha-allure-reporter": "^1.4.0"
   },
   "scripts": {

@@ -1,6 +1,6 @@
-/// <reference types="Cypress" >
+/// <reference types="Cypress" />
 
-import faker from 'faker'
+import faker from "@faker-js/faker";
 faker.locale = 'pt_BR'
 
 const name = faker.name.findName()
@@ -9,45 +9,38 @@ const email = faker.internet.email()
 describe('Criar conta', () => {
     before(() => {
         //cria conta de aluno
-        cy.visit("/criar-conta")
-        cy.get('#name').type(name)
-        cy.get('#email').type(email)
-        cy.enterPassword(Cypress.env('CYPRESS_PASSWORD'), Cypress.env('CYPRESS_PASSWORD'))
-        cy.get("[value='0']").should('to.be.checked') 
-        cy.get('.styles__Wrapper-sc-s8fbhq-0').should('to.be.disabled')
-        cy.get('#termsConfirm').click()
-        cy.get('.styles__Wrapper-sc-s8fbhq-0').should('to.be.enabled').click()
-        cy.get('.styles__Link-sc-xhmkr6-2 > a').click()
+        cy.criarConta(name, email, 0)
+        cy.contains('Preencher depois').click()
     })
 
-    beforeEach(() =>{
+    beforeEach(() => {
         cy.visit("/login")
     })
 
     it('Clicar no link para criar nova conta', () => {
-        cy.get('div:nth-child(3) > a').click()
-        cy.url().should('eq', 'https://me-conta-frontend.herokuapp.com/criar-conta')
+        cy.contains('Criar conta').click()
+        cy.url().should('include', '/criar-conta')
     })
 
     it('Clicar no link para recuperar a senha', () => {
-        cy.get('div:nth-child(4) > a').click()
-        cy.url().should('eq', 'https://me-conta-frontend.herokuapp.com/recuperacao-de-senha')
+        cy.contains('Esqueceu a senha?').click()
+        cy.url().should('include', '/recuperacao-de-senha')
     })
 
     it('Campos inválidos', () => {
-        cy.get('.styles__Wrapper-sc-s8fbhq-0').click()
-        cy.get('div:nth-child(1) > p').should('have.text'," E-mail é obrigatório ")
-        cy.get('div:nth-child(2) > p').should('have.text'," A senha é obrigatório ")
+        cy.contains('ENTRAR').click()
+        cy.get('[data-testid="E-mail"]').parent().contains('E-mail é obrigatório')
+        cy.get('[data-testid="Senha"]').parent().contains('A senha é obrigatório')
         cy.get('#email').type('teste')
-        cy.get('div:nth-child(1) > p').should('have.text'," E-mail inválido ")
+        cy.get('[data-testid="E-mail"]').parent().contains('E-mail inválido')
     })
 
     it('Senha incorreta', () => {
         cy.get('#email').type(email)
         cy.get('#password').type('senhaincorreta')
-        cy.get('.styles__Wrapper-sc-s8fbhq-0').click()
+        cy.contains('ENTRAR').click()
         //mensagem de senha incorreta
-        cy.get('.Toastify__toast-body').should('have.text',"Unauthorized")
+        cy.get('.Toastify__toast-body').should('have.text', "Unauthorized")
     })
 
     it('Usuário não existente', () => {
@@ -55,8 +48,8 @@ describe('Criar conta', () => {
 
         cy.get('#email').type(email)
         cy.get('#password').type('senhaincorreta')
-        cy.get('.styles__Wrapper-sc-s8fbhq-0').click()
+        cy.contains('ENTRAR').click()
         //mensagem de senha incorreta
-        cy.get('.Toastify__toast-body').should('have.text',"Unauthorized")
+        cy.get('.Toastify__toast-body').should('have.text', "Unauthorized")
     })
 })
