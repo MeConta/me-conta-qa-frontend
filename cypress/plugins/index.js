@@ -35,6 +35,8 @@ module.exports = (on, config) => {
       dialect: "postgres",
       ssl: ssl,
     }
+    console.log('Starting database clean up');
     await cleanUpDatabase(options);
+    console.log('Database clean up finished');
   })
 }

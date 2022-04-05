@@ -31,9 +31,10 @@ jobs:
     - name: create env file
       run: |
         touch .env
-        echo PGUSER=${{ secrets.PGUSER }} >> .env
+        echo PGPORT=${{ secrets.PGPORT }} >> .env
         echo PGHOST=${{ secrets.PGHOST }} >> .env
         echo PGDATABASE=${{ secrets.PGDATABASE }} >> .env
+        echo PGPASSWORD=${{ secrets.PGPASSWORD }} >> .env
         echo PGPORT=${{ secrets.PGPORT }} >> .env
     - run: npm ci
     - run: npm run build --if-present
