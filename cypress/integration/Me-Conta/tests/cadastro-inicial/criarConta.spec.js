@@ -1,7 +1,6 @@
 /// <reference types="Cypress" />
 
 import faker from "@faker-js/faker";
-faker.locale = 'pt_BR';
 
 const name = faker.name.findName()
 const email = faker.internet.email()

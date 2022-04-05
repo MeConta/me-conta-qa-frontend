@@ -10,13 +10,13 @@ describe('Cadastrar Supervisor', () => {
 
         cy.criarConta(name, email, 1)
         cy.url().should('include', '/cadastro-voluntario')
+        cy.get("[id='Supervisor *']").click()
     })
 
     it('Cadastrar Supervisor - Sucesso com todos os campos', () => {
         const phone = faker.phone.phoneNumber('###########')
         const data = '1990-10-10'
 
-        cy.get("[id='Supervisor *']").click()
         cy.get('#telefone').type(phone)
         cy.get('#dataNascimento').type(data, { force: true })
         cy.get('#UF').select('Acre').should('have.value', 'AC')
@@ -39,7 +39,6 @@ describe('Cadastrar Supervisor', () => {
         const phone = faker.phone.phoneNumber('###########')
         const data = '1990-10-10'
 
-        cy.get("[id='Supervisor *']").should('to.be.visible').click()
         cy.get('#telefone').type(phone)
         cy.get('#dataNascimento').should('to.be.visible').type(data, { force: true })
         cy.get('#UF').should('to.be.visible').select('Acre').should('have.value', 'AC')
@@ -72,8 +71,9 @@ describe('Cadastrar Supervisor', () => {
         cy.get('.styles__FrenteError-sc-1cq2thm-3').should('have.text', "Frentes de atuação é obrigatório")
     })
 
-    it.only('Cadastrar Supervisor - Campos inválidos', () => {
+    it('Cadastrar Supervisor - Campos inválidos', () => {
         const data = '2010-10-10'
+
 
         //cy.get('#dataNascimento').type(data, { force: true })
         // This msg never appears
@@ -81,8 +81,7 @@ describe('Cadastrar Supervisor', () => {
         cy.get('#cidade').type('AB')
         cy.contains('CADASTRAR').click()
         cy.get('[data-testid="Cidade"]').parent().contains('Cidade deve conter mais de 3 caracteres')
-
-        cy.get('#anoFormacao').clear().type('2030')
+        cy.get('[data-testid="anoFormacao"]').clear().type('2030')
         cy.get('[data-testid="Ano de conclusão"]').parent().contains('Ano de formação inválido')
     })
 })
