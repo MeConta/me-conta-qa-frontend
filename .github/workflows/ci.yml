@@ -25,6 +25,10 @@ jobs:
       uses: actions/setup-node@v2
       env:
         CYPRESS_PASSWORD: ${{ secrets.CYPRESS_PASSWORD }}
+        PGUSER: ${{ secrets.PGUSER }}
+        PGHOST: ${{ secrets.PGHOST }}
+        PGDATABASE: ${{ secrets.PGDATABASE }}
+        PGPORT: ${{ secrets.PGPORT }}
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'

@@ -3,13 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "devDependencies": {
-    "@faker-js/faker": "^6.0.0",
-    "@shelex/cypress-allure-plugin": "^2.26.5",
-    "allure-commandline": "^2.17.2",
-    "cypress": "^9.5.2",
-    "mocha-allure-reporter": "^1.4.0"
-  },
   "scripts": {
     "test": "npx cypress run",
     "test:ci": "npx cypress run -e configFile=test CYPRESS_PASSWORD=$CYPRESS_PASSWORD",
@@ -17,5 +10,16 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^6.0.0",
+    "@shelex/cypress-allure-plugin": "^2.26.5",
+    "allure-commandline": "^2.17.2",
+    "cypress": "^9.5.2",
+    "mocha-allure-reporter": "^1.4.0",
+    "pg": "^8.7.3"
+  }
 }
