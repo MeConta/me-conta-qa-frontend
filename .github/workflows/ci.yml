@@ -25,13 +25,16 @@ jobs:
       uses: actions/setup-node@v2
       env:
         CYPRESS_PASSWORD: ${{ secrets.CYPRESS_PASSWORD }}
-        PGUSER: ${{ secrets.PGUSER }}
-        PGHOST: ${{ secrets.PGHOST }}
-        PGDATABASE: ${{ secrets.PGDATABASE }}
-        PGPORT: ${{ secrets.PGPORT }}
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - name: create env file
+      run: |
+        touch .env
+        echo PGUSER=${{ secrets.PGUSER }} >> .env
+        echo PGHOST=${{ secrets.PGHOST }} >> .env
+        echo PGDATABASE=${{ secrets.PGDATABASE }} >> .env
+        echo PGPORT=${{ secrets.PGPORT }} >> .env
     - run: npm ci
     - run: npm run build --if-present
     - run: npx cypress run -e configFile=test CYPRESS_PASSWORD=$CYPRESS_PASSWORD
