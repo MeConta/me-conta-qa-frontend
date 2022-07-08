@@ -12,6 +12,6 @@ Cypress.Commands.add("criarConta", (name, email, tipo) => {
   // Verify that default is checked
   cy.get("[value='0']").should("to.be.checked");
   cy.get(`[value=${tipo}]`).click();
-  cy.get("#termsConfirm").click();
+  cy.get("[name=termsConfirm]").click();
   cy.contains(/CADASTRAR/i).click();
 });
