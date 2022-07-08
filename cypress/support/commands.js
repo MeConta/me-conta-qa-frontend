@@ -15,3 +15,12 @@ Cypress.Commands.add("criarConta", (name, email, tipo) => {
   cy.get("[name=termsConfirm]").click();
   cy.contains(/CADASTRAR/i).click();
 });
+
+Cypress.Commands.add("preencherDadosPessoais", (phone, data) => {
+  cy.get("#telefone").type(phone);
+  cy.get("#dataNascimento").type(data, { force: true });
+  cy.get("#UF").select("Acre").should("have.value", "AC");
+  cy.get("#cidade").type("Rio Branco");
+  cy.get("#Feminino").click();
+  cy.contains(/Próximo Passo/i).click();
+});
