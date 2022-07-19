@@ -78,15 +78,38 @@ context("funcionalidade: completar detalhes da conta", () => {
   });
 });
 
-context(
-  "funcionalidade: exibir erros de campo inválido e campo obrigatório na tela de Dados da Conta",
-  () => {
-    describe("Dado: que estou na primeira tela do formulário de cadastro", () => {});
+context("funcionalidade: completar dados pessoais", () => {
+  const phone = faker.phone.phoneNumber("553########");
+  const data = "2013-10-10";
+  describe("Dado: que estou na segunda tela do formulário de cadastro", () => {
+    it("eu vejo a segunda tela do cadastro", () => {
+      cy.contains(/Complete seus Dados Pessoais/i).should("be.visible");
+    })
+  });
 
-    describe("Quando: eu preencho um nome, email ou senha inválido", () => {});
+  describe("Quando: eu preencho todos os dados pessoais", () => {
+    it("eu preencho todos os campos do formulário (telefone, data de nascimento, estado, cidade e gênero)", () => {
+      cy.get("#telefone").type(phone);
+      cy.get("#dataNascimento").type(data, { force: true });
+      cy.get("#UF").select("Acre").should("have.value", "AC");
+      cy.get("#cidade").type("Rio Branco");
+      cy.get("#Feminino").click();
+    })
+  });
 
-    describe("Então: eu devo ser avisado sobre as inconsistências", () => {});
+  describe("E: clico no botão de Próximo Passo", () => {
+    it("eu clico no botão de Próximo Passo", () => {
+      const proximoPassoButton = cy.contains(/Próximo Passo/i);
+      proximoPassoButton.should("be.enabled");
+      proximoPassoButton.click();
+    })
+  });
 
-    describe("E: não consigo concluir meu cadastro", () => {});
-  }
-);
+  describe("Então: sou redirecionado para a terceira tela de cadastro do aluno (Dados Escolares)", () => {
+    it("eu vejo a terceira tela de cadastro (dados escolares)", () => {
+      cy.contains(/Complete seus Dados Escolares/i).should("be.visible");
+    })
+  });
+})
+
+
