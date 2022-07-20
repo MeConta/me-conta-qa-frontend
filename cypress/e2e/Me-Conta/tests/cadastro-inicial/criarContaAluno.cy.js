@@ -114,39 +114,37 @@ context("funcionalidade: completar dados pessoais", () => {
   });
 });
 
-context("funcionalidade: completar dados escolares", () => {
+describe("funcionalidade: completar cadastro com sucesso com todos os dados preenchidos", () => {
   before(() => {
-    cy.criarConta("Maria Silva", faker.internet.email(), 0);
-    cy.url().should("include", "/criar-conta");
+    const name = "Maria Silva Só";
+    const email = faker.internet.email();
+
     const phone = faker.phone.phoneNumber("553########");
     const data = "2013-10-10";
+    cy.criarConta(name, email, 0);
     cy.preencherDadosPessoais(phone, data);
   });
 
-  describe("Dado: que estou na terceira tela do formulário de cadastro (Dados Escolares)", () => {
-    it("eu vejo a terceira tela do cadastro", () => {
-      cy.contains(/Complete seus Dados Escolares/i).should("be.visible");
-    });
-  });
+  it("Dado: que eu preencho os dados escolares e concluo o cadastro, então sou redirecionado para o dashboard de aluno", () => {
+    cy.contains(/Complete seus Dados Escolares/i).should("be.visible");
+    cy.get("[name=escolaridade]")
+      .select("1º Ano - Ensino Médio")
+      .should("have.value", "0");
+    cy.get("[name=tipoEscola]").should("to.be.checked");
+    cy.get("#necessidades")
+      .type("minhas necessidades")
+      .should("have.value", "minhas necessidades");
+    cy.get("#expectativas")
+      .type("minhas expectativas")
+      .should("have.value", "minhas expectativas");
+    cy.get("#tratamentos")
+      .type("meus tratamentos")
+      .should("have.value", "meus tratamentos");
 
-  describe("Quando: eu preencho todos os dados escolares", () => {
-    it("eu preencho todos os campos do formulário (escolaridade, tipo de escola)", () => {
-      cy.get("[name=escolaridade]")
-        .select("1º Ano - Ensino Médio")
-        .should("have.value", "0");
-      cy.get("[name=tipoEscola]").should("to.be.checked");
-      cy.get("#necessidades").type("minhas necessidades");
+    cy.contains(/Concluir meu Cadastro/i)
+      .should("be.enabled")
+      .click();
 
-      cy.get("#expectativas").type("minhas expectativas");
-
-      cy.get("#tratamentos").type("meus tratamentos");
-    });
-  });
-
-  describe.skip("E: clico no botão de Concluir meu Cadastro", () => {
-    it("eu clico no botão de Concluir meu Cadastro", () => {
-      cy.contains(/Concluir meu Cadastro/i).click();
-      cy.wait(2000).url().should("include", "/dashboard-aluno");
-    });
+    cy.url().should("include", "/dashboard-aluno");
   });
 });
