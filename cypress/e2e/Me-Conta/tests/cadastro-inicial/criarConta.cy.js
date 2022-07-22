@@ -26,15 +26,15 @@ context(
 
     describe("Quando: eu preencho um e-mail já cadastrado", () => {
       it("eu tento criar uma conta com um e-mail já cadastrado", () => {
+        cy.intercept("POST", "/cadastro-inicial").as("criarConta");
         cy.criarConta(name, "teste@teste.com", 0);
+        cy.wait("@criarConta");
         cy.get("#email").should("have.value", "teste@teste.com");
       });
     });
 
     describe("Então: sou avisado de que o e-mail está duplicado", () => {
       it("eu consigo ver um toast avisando que o e-mail está duplicado", () => {
-        cy.intercept("POST", "/cadastro-inicial").as("criarConta");
-        cy.wait("@criarConta");
         cy.get(".Toastify__toast-body").should("have.text", "E-mail duplicado");
       });
     });

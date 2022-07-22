@@ -67,9 +67,11 @@ context("funcionalidade: completar detalhes da conta", () => {
 
   describe("E: clico no botão de Cadastrar", () => {
     it("eu clico no botão de Cadastrar", () => {
+      cy.intercept("POST", "/cadastro-inicial").as("criarConta");
       const cadastrarButton = cy.contains(/Cadastrar/i);
       cadastrarButton.should("be.enabled");
       cadastrarButton.click();
+      cy.wait("@criarConta");
     });
   });
 
