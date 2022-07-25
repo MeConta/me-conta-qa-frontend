@@ -24,3 +24,13 @@ Cypress.Commands.add("preencherDadosPessoais", (phone, data) => {
   cy.get("#Feminino").click();
   cy.contains(/Próximo Passo/i).click();
 });
+
+Cypress.Commands.add("preencherDadosEscolares", () => {
+  cy.get("[name=escolaridade]")
+  .select("1º Ano - Ensino Médio")
+  .should("have.value", "0");
+cy.get("[name=tipoEscola]").should("to.be.checked");
+cy.contains(/Concluir meu Cadastro/i)
+  .should("be.enabled")
+  .click();
+})
