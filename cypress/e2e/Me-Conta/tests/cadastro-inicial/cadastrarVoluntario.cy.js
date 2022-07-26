@@ -4,7 +4,7 @@ import faker from "@faker-js/faker";
 faker.setLocale("pt_BR");
 
 const TIPO_VOLUNTARIO = "2";
-const breveDescricao = faker.lorem.text();
+const breveDescricao = faker.lorem.text(1);
 const frentesAtuacao = {
   ACOLHIMENTO: 0,
   COACHING_ESTUDOS: 1,

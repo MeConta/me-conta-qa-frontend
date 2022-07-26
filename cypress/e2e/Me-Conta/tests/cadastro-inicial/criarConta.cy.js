@@ -2,7 +2,7 @@
 
 import faker from "@faker-js/faker";
 
-const name = faker.name.findName();
+const name = "Maria Silva Sá";
 const email = faker.internet.email();
 const password = Cypress.env("PASSWORD");
 
