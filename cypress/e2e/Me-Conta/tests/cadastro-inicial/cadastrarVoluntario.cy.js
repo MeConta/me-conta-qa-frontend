@@ -4,7 +4,7 @@ import faker from "@faker-js/faker";
 faker.setLocale("pt_BR");
 
 const TIPO_VOLUNTARIO = "2";
-const breveDescricao = faker.lorem.text(1);
+const breveDescricao = faker.lorem.words(5);
 const frentesAtuacao = {
   ACOLHIMENTO: 0,
   COACHING_ESTUDOS: 1,
@@ -200,9 +200,7 @@ describe("funcionalidade: completar cadastro com sucesso com todos os dados pree
     cy.get(`#frentes [value=${frentesAtuacao.COACHING_ESTUDOS}]`)
       .click()
       .should("be.checked");
-    cy.get("#bio")
-      .type(breveDescricao)
-      .should("have.value", breveDescricao.slice(0, 255));
+    cy.get("#bio").type(breveDescricao).should("have.value", breveDescricao);
 
     cy.contains(/Finalizar Cadastro/i)
       .should("be.enabled")
