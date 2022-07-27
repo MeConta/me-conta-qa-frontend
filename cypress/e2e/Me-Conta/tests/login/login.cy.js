@@ -1,13 +1,13 @@
 /// <reference types="Cypress" />
 
 import faker from "@faker-js/faker";
+import { tiposDeUsuario } from "../../../../constants/constants";
 faker.locale = "pt_BR";
 
 const name = "Maria Silva Sá";
 const email = faker.internet.email();
 const password = Cypress.env("PASSWORD");
 
-const TIPO_ALUNO = 0;
 const INVALID_LOGIN_ERROR = "Email ou senha inválido(s)!";
 
 const irParaPaginaLogin = () => {
@@ -28,7 +28,7 @@ context("funcionalidade: realização de login com sucesso", () => {
   describe("Dado: que eu sou um usuário com uma conta criada", () => {
     it("eu crio uma conta do tipo aluno, mas não completo todas as etapas do cadastro (Dados Pessoais e Dados Escolares)", () => {
       cy.intercept("POST", "/cadastro-inicial").as("criarConta");
-      cy.criarConta(name, email, TIPO_ALUNO);
+      cy.criarConta(name, email, tiposDeUsuario.ALUNO);
       cy.wait("@criarConta").its("response.statusCode").should("eq", 201);
     });
   });

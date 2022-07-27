@@ -1,8 +1,8 @@
 /// <reference types="Cypress" />
 
 import faker from "@faker-js/faker";
+import { tiposDeUsuario } from "../../../../constants/constants";
 faker.setLocale("pt_BR");
-const TIPO_ALUNO = "0";
 
 const name = "Maria Silva Só";
 let email = faker.internet.email();
@@ -10,7 +10,7 @@ let email = faker.internet.email();
 context("funcionalidade: completar dados pessoais", () => {
   before (() => {
     cy.intercept("POST", "/cadastro-inicial").as("criarConta");
-    cy.criarConta(name, email, TIPO_ALUNO);
+    cy.criarConta(name, email, tiposDeUsuario.ALUNO);
     cy.wait("@criarConta");
   })
   const phone = faker.phone.phoneNumber("553########");
@@ -29,9 +29,7 @@ context("funcionalidade: completar dados pessoais", () => {
 
   describe("E: clico no botão de Próximo Passo", () => {
     it("eu clico no botão de Próximo Passo", () => {
-      const proximoPassoButton = cy.contains(/Próximo Passo/i);
-      proximoPassoButton.should("be.enabled");
-      proximoPassoButton.click();
+      cy.contains(/Próximo Passo/i).should("be.enabled").click();
     });
   });
 
@@ -45,7 +43,7 @@ context("funcionalidade: completar dados pessoais", () => {
 describe("funcionalidade: completar cadastro com sucesso com todos os dados preenchidos", () => {
   before(() => {
     email = faker.internet.email();
-    cy.criarConta(name, email, TIPO_ALUNO);
+    cy.criarConta(name, email, tiposDeUsuario.ALUNO);
     const phone = faker.phone.phoneNumber("553########");
     const data = "2013-10-10";
     cy.preencherDadosPessoais(phone, data);
