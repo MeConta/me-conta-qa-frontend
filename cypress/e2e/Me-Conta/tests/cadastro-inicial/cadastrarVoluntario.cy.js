@@ -14,88 +14,15 @@ const nivelDeFormacao = {
   SUPERIOR_COMPLETO: 0,
   SUPERIOR_EM_ANDAMENTO: 1,
 };
-
-context("funcionalidade: acessar a página de cadastro", () => {
-  before(() => {
-    cy.visit("/login");
-    cy.intercept("POST", "/cadastro-inicial").as("criarConta");
-    cy.intercept("POST", "/cadastro-voluntario").as("cadastrarVoluntario");
-  });
-
-  describe("Dado: que estou na página de login do site do MeConta", () => {
-    it("eu acesso a página de login", () => {
-      cy.contains(/Faça seu login e comece seu atendimento/).should(
-        "be.visible"
-      );
-    });
-  });
-
-  describe("Quando: eu clico no botão Crie sua Conta", () => {
-    it("eu clico no botão Crie sua Conta", () => {
-      const criarContaButton = cy.contains(/Crie sua Conta/i);
-      criarContaButton.should("be.enabled");
-      criarContaButton.click();
-    });
-  });
-
-  describe("Então: sou redirecionado para a primeira tela de cadastro", () => {
-    it("eu sou redirecionado a primeira tela do cadastro", () => {
-      cy.url().should("include", "/criar-conta");
-    });
-  });
-});
-
-context("funcionalidade: completar detalhes da conta", () => {
-  const password = Cypress.env("PASSWORD");
-  const name = "Maria Silva Só";
-  const email = faker.internet.email();
-
-  describe("Dado: que estou na primeira tela do formulário de cadastro", () => {
-    it("eu vejo a primeira tela do cadastro", () => {
-      cy.contains(/Criar Conta/i).should("be.visible");
-    });
-  });
-
-  describe("Quando: eu preencho todos os dados", () => {
-    it("eu preencho todos os campos do formulário (nome, email e senha)", () => {
-      cy.get("#name").type(name);
-      cy.get("#email").type(email);
-      cy.enterPassword(password, password);
-    });
-  });
-
-  describe('E: escolho o tipo de usuário "Voluntário"', () => {
-    it("eu seleciono o usuário do tipo Voluntário", () => {
-      cy.get(`[value=${TIPO_VOLUNTARIO}]`).click();
-      cy.get(`[value=${TIPO_VOLUNTARIO}]`).should("to.be.checked");
-    });
-  });
-
-  describe("E: aceito os termos de uso e política de privacidade", () => {
-    it("eu seleciono que aceito os termos de uso", () => {
-      cy.get("[name=termsConfirm]").click();
-      cy.get("[name=termsConfirm]").should("to.be.checked");
-    });
-  });
-
-  describe("E: clico no botão de Cadastrar", () => {
-    it("eu clico no botão de Cadastrar", () => {
-      const cadastrarButton = cy.contains(/Cadastrar/i);
-      cadastrarButton.should("be.enabled");
-      cadastrarButton.click();
-    });
-  });
-
-  describe("Então: sou redirecionado para a segunda tela de cadastro do aluno (Dados Pessoais)", () => {
-    it("eu vejo a segunda tela de cadastro (dados pessoais)", () => {
-      cy.contains(/Complete seus Dados Pessoais/i).should("be.visible");
-    });
-  });
-});
+const name = "Maria Silva Só";
+let email = faker.internet.email();
 
 context("funcionalidade: completar dados pessoais", () => {
   const phone = faker.phone.phoneNumber("553########");
   const data = "2013-10-10";
+  before (() => {
+    cy.criarConta(name, email, TIPO_VOLUNTARIO);
+  })
   describe("Dado: que estou na segunda tela do formulário de cadastro", () => {
     it("eu vejo a segunda tela do cadastro", () => {
       cy.contains(/Complete seus Dados Pessoais/i).should("be.visible");
@@ -104,11 +31,7 @@ context("funcionalidade: completar dados pessoais", () => {
 
   describe("Quando: eu preencho todos os dados pessoais", () => {
     it("eu preencho todos os campos do formulário (telefone, data de nascimento, estado, cidade e gênero)", () => {
-      cy.get("#telefone").type(phone);
-      cy.get("#dataNascimento").type(data, { force: true });
-      cy.get("#UF").select("Acre").should("have.value", "AC");
-      cy.get("#cidade").type("Rio Branco");
-      cy.get("#Feminino").click();
+      cy.preencherDadosPessoais(phone, data, false);
     });
   });
 
