@@ -9,7 +9,9 @@ let email = faker.internet.email();
 
 context("funcionalidade: completar dados pessoais", () => {
   before (() => {
+    cy.intercept("POST", "/cadastro-inicial").as("criarConta");
     cy.criarConta(name, email, TIPO_ALUNO);
+    cy.wait("@criarConta");
   })
   const phone = faker.phone.phoneNumber("553########");
   const data = "2013-10-10";
@@ -43,7 +45,7 @@ context("funcionalidade: completar dados pessoais", () => {
 describe("funcionalidade: completar cadastro com sucesso com todos os dados preenchidos", () => {
   before(() => {
     email = faker.internet.email();
-    cy.criarConta(name, email, 0);
+    cy.criarConta(name, email, TIPO_ALUNO);
     const phone = faker.phone.phoneNumber("553########");
     const data = "2013-10-10";
     cy.preencherDadosPessoais(phone, data);
