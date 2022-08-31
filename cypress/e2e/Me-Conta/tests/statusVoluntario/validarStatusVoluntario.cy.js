@@ -22,7 +22,7 @@
        cy.get("#email").type('voluntarioaprovado@meconta.com').should("have.value", 'voluntarioaprovado@meconta.com');
        cy.get("#password").type('M3c0nt4_123!admin').should("have.value", 'M3c0nt4_123!admin');
        cy.contains("ENTRAR").should("be.enabled").click();
-       cy.get('.styles__SecondLevelTitle-sc-192oyhy-9').should("have.text", 'Meus horários disponíveis na semana')
+       cy.get('.styles__NewUserCardTitle-sc-192oyhy-3').should("have.text", 'Meus horários disponíveis')
         })
     })
 })
